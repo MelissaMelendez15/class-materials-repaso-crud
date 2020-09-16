@@ -119,6 +119,11 @@ const coasters = [
     }
 ]
 
+// Coaster.create(coasters)
+//     .then(allTheCoasters => {
+//         console.log(`Create ${allTheCoasters.length} coasters`)
+//     })
+
 Promise.all(coasters.map(coaster => Park.create(coaster.park).then(park => park.name)))
     .then(() => coasters.map(coaster => Park.findOne({ name: coaster.park.name }).then(park => Object.assign({}, coaster, { park: park._id }))))
     .then(findParks => Promise.all(findParks).then(coasters => coasters.map(coaster => Coaster.create(coaster))))
